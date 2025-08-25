@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "ru.vladusecho.weatherapp"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "ru.vladusecho.weatherapp"
