@@ -1,4 +1,4 @@
-package ru.vladusecho.weatherapp.presentation
+package ru.vladusecho.weatherapp.presentation.ui.main
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
