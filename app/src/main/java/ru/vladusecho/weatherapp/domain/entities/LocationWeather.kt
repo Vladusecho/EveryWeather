@@ -1,13 +1,13 @@
 package ru.vladusecho.weatherapp.domain.entities
 
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Serializable
 data class LocationWeather(
 
-    @SerialName("name") val locationName: String,
-    @SerialName("region") val region: String,
-    @SerialName("country") val country: String
+    @SerializedName("name") val locationName: String,
+    @SerializedName("region") val region: String,
+    @SerializedName("country") val country: String
 
 )

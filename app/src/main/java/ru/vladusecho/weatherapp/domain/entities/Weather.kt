@@ -1,12 +1,12 @@
 package ru.vladusecho.weatherapp.domain.entities
 
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Serializable
 data class Weather(
 
-    @SerialName("current") val currentWeather: CurrentWeather,
-    @SerialName("location") val locationWeather: LocationWeather,
-    @SerialName("forecast") val forecast: Forecast
+    @SerializedName("current") val currentWeather: CurrentWeather,
+    @SerializedName("location") val locationWeather: LocationWeather,
+    @SerializedName("forecast") val forecast: Forecast
 )

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import ru.vladusecho.weatherapp.R
 import ru.vladusecho.weatherapp.databinding.ActivityMainBinding
+import ru.vladusecho.weatherapp.domain.entities.Weather
 import ru.vladusecho.weatherapp.presentation.viewmodels.MainViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -22,5 +23,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
+        viewModel.weatherLiveData.observe(this) {
+            binding.tvCurrentWeather.text = it.currentWeather.toString()
+        }
+        binding.btnSearch.setOnClickListener {
+            viewModel.loadWeather(binding.etCityName.text.toString())
+        }
     }
 }
