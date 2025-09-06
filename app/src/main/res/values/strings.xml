@@ -3,4 +3,5 @@
     <string name="everyweather">EveryWeather</string>
     <string name="search_placeholder">Поиск…</string>
     <string name="search">Поиск</string>
+    <string name="weather_icon">weather_icon</string>
 </resources>

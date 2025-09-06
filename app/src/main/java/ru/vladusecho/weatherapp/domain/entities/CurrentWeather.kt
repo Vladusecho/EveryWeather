@@ -10,4 +10,12 @@ data class CurrentWeather(
     @SerializedName("temp_c") val temp: String,
     @SerializedName("wind_kph") val wind: String,
     @SerializedName("condition") val describing: ConditionWeather
-)
+) {
+
+    override fun toString(): String {
+        return "Последнее обновление: $lastUpdate\n" +
+                "Текущая температура: $temp °C\n" +
+                "Скорость ветра: ${"%.1f".format(wind.toFloat()/3.6)} м/с\n" +
+                "Погода: ${describing.text}"
+    }
+}

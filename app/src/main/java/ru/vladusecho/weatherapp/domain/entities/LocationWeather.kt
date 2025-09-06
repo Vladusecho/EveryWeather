@@ -10,4 +10,11 @@ data class LocationWeather(
     @SerializedName("region") val region: String,
     @SerializedName("country") val country: String
 
-)
+) {
+
+    override fun toString(): String {
+        return "Город: $locationName\n" +
+                "Регион: $region\n" +
+                "Страна: $country"
+    }
+}

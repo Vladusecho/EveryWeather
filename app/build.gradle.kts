@@ -53,6 +53,7 @@ android {
 
 dependencies {
 
+    implementation(libs.coil)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.logging.interceptor)
