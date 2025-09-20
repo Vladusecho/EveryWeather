@@ -4,4 +4,5 @@
     <string name="search_placeholder">Введите город…</string>
     <string name="search">Поиск</string>
     <string name="weather_icon">weather_icon</string>
+    <string name="developed_by_vladusecho">Developed by Vladusecho</string>
 </resources>

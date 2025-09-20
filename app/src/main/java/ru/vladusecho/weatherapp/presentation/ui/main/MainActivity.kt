@@ -72,7 +72,10 @@ class MainActivity : AppCompatActivity() {
                 State.Loading -> {
                     with(binding) {
                         tvCurrentLocation.text = ""
-                        tvCurrentWeather.text = ""
+                        tvCurrentWind.text = ""
+                        tvCurrentTemp.text = ""
+                        tvActualDate.text = ""
+                        tvCurrentInfo.text = ""
                         ivWeatherIcon.visibility = View.GONE
                         btnSearch.visibility = View.INVISIBLE
                         pbLoadingWeather.visibility = View.VISIBLE
@@ -82,8 +85,11 @@ class MainActivity : AppCompatActivity() {
                 is State.Content -> {
                     with(binding) {
                         pbLoadingWeather.visibility = View.GONE
-                        tvCurrentWeather.text = it.receivedWeather.currentWeather.toString()
                         tvCurrentLocation.text = it.receivedWeather.locationWeather.toString()
+                        tvCurrentWind.text = it.receivedWeather.currentWeather.getWindAsText()
+                        tvCurrentTemp.text = it.receivedWeather.currentWeather.getTempAsText()
+                        tvActualDate.text = it.receivedWeather.currentWeather.getDateAsText()
+                        tvCurrentInfo.text = it.receivedWeather.currentWeather.describing.text
                         ivWeatherIcon.visibility = View.VISIBLE
                         btnSearch.visibility = View.VISIBLE
                         ivWeatherIcon.load("https:" + it.receivedWeather.currentWeather.describing.icon) {

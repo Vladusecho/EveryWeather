@@ -13,8 +13,6 @@ data class LocationWeather(
 ) {
 
     override fun toString(): String {
-        return "Город: $locationName\n" +
-                "Регион: $region\n" +
-                "Страна: $country"
+        return "$locationName, $country"
     }
 }
