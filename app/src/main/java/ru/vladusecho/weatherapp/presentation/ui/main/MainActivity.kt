@@ -1,11 +1,11 @@
 package ru.vladusecho.weatherapp.presentation.ui.main
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.translationMatrix
 import androidx.lifecycle.ViewModelProvider
 import coil.load
 import ru.vladusecho.weatherapp.R
@@ -15,11 +15,11 @@ import ru.vladusecho.weatherapp.presentation.viewmodels.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
-    val viewModel by lazy {
+    private val viewModel by lazy {
         ViewModelProvider(this)[MainViewModel::class.java]
     }
 
-    val binding by lazy {
+    private val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
@@ -27,32 +27,49 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
-        binding.upperSlider.startAnimation(
-            AnimationUtils.loadAnimation(this, R.anim.slide_in_from_top)
-        )
-        binding.etCityName.startAnimation(
-            AnimationUtils.loadAnimation(this, R.anim.slide_from_right)
-        )
-        binding.lowerSlider.startAnimation(
-            AnimationUtils.loadAnimation(this, R.anim.slide_in_from_down)
-        )
-        binding.btnSearch.apply {
-            translationX = 1000f
-            alpha = 0f
-            visibility = View.VISIBLE
-            animate()
-                .translationX(0f)
-                .alpha(1f)
-                .setDuration(1500)
-                .withEndAction {
-                    translationY = 0f
-                    alpha = 1f
-                }
-                .start()
+        loadAnimations(this)
+        observeLiveData()
+        setListeners()
+    }
+
+    private fun setListeners() {
+        binding.btnSearch.setOnClickListener {
+            viewModel.loadWeather(binding.etCityName.text.toString())
         }
+    }
+
+    private fun loadAnimations(context: Context) {
+        with(binding) {
+            upperSlider.startAnimation(
+                AnimationUtils.loadAnimation(context, R.anim.slide_in_from_top)
+            )
+            etCityName.startAnimation(
+                AnimationUtils.loadAnimation(context, R.anim.slide_from_right)
+            )
+            lowerSlider.startAnimation(
+                AnimationUtils.loadAnimation(context, R.anim.slide_in_from_down)
+            )
+            btnSearch.apply {
+                translationX = 1000f
+                alpha = 0f
+                visibility = View.VISIBLE
+                animate()
+                    .translationX(0f)
+                    .alpha(1f)
+                    .setDuration(1500)
+                    .withEndAction {
+                        translationY = 0f
+                        alpha = 1f
+                    }
+                    .start()
+            }
+        }
+    }
+
+    private fun observeLiveData() {
         viewModel.stateLiveData.observe(this) {
-            when(it) {
-                is State.Loading -> {
+            when (it) {
+                State.Loading -> {
                     with(binding) {
                         tvCurrentLocation.text = ""
                         tvCurrentWeather.text = ""
@@ -74,10 +91,14 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }
+                is State.Error -> {
+                    with(binding) {
+                        tvCurrentLocation.text = it.errorText
+                        pbLoadingWeather.visibility = View.GONE
+                        btnSearch.visibility = View.VISIBLE
+                    }
+                }
             }
-        }
-        binding.btnSearch.setOnClickListener {
-            viewModel.loadWeather(binding.etCityName.text.toString())
         }
     }
 }

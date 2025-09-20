@@ -1,22 +1,16 @@
 package ru.vladusecho.weatherapp.presentation.viewmodels
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import ru.vladusecho.weatherapp.data.repository.WeatherRepositoryImpl
-import ru.vladusecho.weatherapp.domain.entities.Weather
 import ru.vladusecho.weatherapp.presentation.states.State
 
 class MainViewModel : ViewModel() {
 
     val repository = WeatherRepositoryImpl
-
-//    private val _weatherLiveData = MutableLiveData<Weather>()
-//    val weatherLiveData: LiveData<Weather>
-//        get() = _weatherLiveData
-
     private val _stateLiveData = MutableLiveData<State>()
     val stateLiveData
         get() = _stateLiveData
@@ -24,7 +18,18 @@ class MainViewModel : ViewModel() {
     fun loadWeather(city: String) {
         viewModelScope.launch {
             _stateLiveData.value = State.Loading
-            _stateLiveData.value = State.Content(repository.getWeatherByCity(city))
+            try {
+                _stateLiveData.value = State.Content(repository.getWeatherByCity(city))
+            } catch (e: HttpException) {
+                _stateLiveData.value = State.Error(SEARCHING_ERROR)
+            } catch (e: Exception) {
+                _stateLiveData.value = State.Error(UNKNOWN_ERROR)
+            }
         }
+    }
+
+    companion object {
+        const val UNKNOWN_ERROR = "Произошла неопознанная ошибка."
+        const val SEARCHING_ERROR = "Неверный запрос, попробуйте снова..."
     }
 }
