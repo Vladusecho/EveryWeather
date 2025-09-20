@@ -5,18 +5,36 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.MainActivity">
+    android:background="#f3e376"
+    tools:context=".presentation.ui.main.MainActivity">
 
-    <TextView
-        android:id="@+id/tv_app_name"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/upper_slider"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
-        android:text="@string/everyweather"
-        android:textSize="32sp"
+        android:background="@drawable/upper_slide"
+        android:layout_marginHorizontal="16dp"
+        android:paddingTop="160dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/et_city_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mainfont"
+            android:text="@string/everyweather"
+            android:textColor="@color/black"
+            android:textSize="52sp"
+            android:layout_gravity="center_horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
 
     <EditText
         android:id="@+id/et_city_name"
@@ -25,29 +43,24 @@
         android:layout_marginTop="64dp"
         android:autofillHints=""
         android:ems="10"
+        android:fontFamily="@font/mainfont"
         android:hint="@string/search_placeholder"
         android:inputType="text"
+        android:textColor="@color/black"
+        android:textColorHint="#6A6464"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_app_name" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_weather_hours"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_search" />
+        app:layout_constraintTop_toBottomOf="@+id/upper_slider" />
 
     <Button
         android:id="@+id/btn_search"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:backgroundTint="#63e4c3"
+        android:fontFamily="@font/mainfont"
         android:text="@string/search"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/et_city_name"
         app:layout_constraintStart_toStartOf="@+id/et_city_name"
         app:layout_constraintTop_toBottomOf="@+id/et_city_name" />
@@ -57,11 +70,67 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/rv_weather_hours"
         app:layout_constraintEnd_toEndOf="@+id/et_city_name"
         app:layout_constraintStart_toStartOf="@+id/et_city_name"
         app:layout_constraintTop_toBottomOf="@+id/et_city_name" />
+
+    <LinearLayout
+        android:id="@+id/lower_slider"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginHorizontal="16dp"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="16dp"
+        android:orientation="vertical"
+        android:background="@drawable/lower_slide"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_search" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_current_location"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/mainfont"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:ellipsize="end"
+                tools:text="wcjjkwchwcgwkjh"/>
+
+            <ImageView
+                android:id="@+id/iv_weather_icon"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginEnd="32dp"
+                android:contentDescription="@string/weather_icon"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center_vertical"
+                app:layout_constraintEnd_toEndOf="@+id/tv_current_weather"
+                app:layout_constraintTop_toBottomOf="@+id/btn_search" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_current_weather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mainfont"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            tools:text="cibcilhqcbiqcqc" />
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

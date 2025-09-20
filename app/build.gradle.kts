@@ -1,6 +1,9 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -16,6 +19,13 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val localProperties = Properties().apply {
+            load(project.rootProject.file("local.properties").inputStream())
+        }
+        val apiKey = localProperties.getProperty("API_KEY") ?: ""
+
+        buildConfigField("String", "API_KEY", "\"$apiKey\"")
     }
 
     buildTypes {
@@ -34,10 +44,24 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
+    }
 }
 
 dependencies {
 
+    implementation(libs.coil)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.lifecycle.livedata.ktx)
+    implementation(libs.lifecycle.runtime.ktx)
+    implementation(libs.activity.ktx)
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
