@@ -33,7 +33,7 @@
   
 | Главный экран | 
 |---------------|
-| ![every_weather](https://github.com/user-attachments/assets/1d05d1f9-aab2-451e-a810-933c1f13cc77) |
+| <img src="https://github.com/user-attachments/assets/1d05d1f9-aab2-451e-a810-933c1f13cc77" width="300" alt="Every Weather App">|
 
 </div>
 
