@@ -127,10 +127,10 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_weight="3"
-                android:orientation="vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tvCurrentTemp"
@@ -142,13 +142,13 @@
                     tools:text="29.2 °C" />
 
                 <TextView
-                    android:gravity="clip_horizontal"
-                    android:textSize="16sp"
                     android:id="@+id/tvCurrentInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat_bold"
+                    android:gravity="clip_horizontal"
                     android:textColor="@color/black"
+                    android:textSize="16sp"
                     tools:text="Облачно с прояснениями" />
 
             </LinearLayout>
@@ -173,6 +173,17 @@
             android:gravity="center_horizontal"
             android:textColor="@color/black"
             tools:text="Актуально на " />
+
+        <Button
+            android:id="@+id/btnForecast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#fff"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:text="@string/hours_forecast"
+            android:textColor="@color/black" />
 
     </LinearLayout>
 

@@ -4,9 +4,11 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import ru.vladusecho.weatherapp.R
 import ru.vladusecho.weatherapp.databinding.ActivityMainBinding
@@ -23,10 +25,12 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
+        binding.btnForecast.visibility = View.INVISIBLE
         loadAnimations(this)
         observeLiveData()
         setListeners()
@@ -35,6 +39,9 @@ class MainActivity : AppCompatActivity() {
     private fun setListeners() {
         binding.btnSearch.setOnClickListener {
             viewModel.loadWeather(binding.etCityName.text.toString())
+        }
+        binding.btnForecast.setOnClickListener {
+            Toast.makeText(this, "Soon...", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -78,6 +85,7 @@ class MainActivity : AppCompatActivity() {
                         tvCurrentInfo.text = ""
                         ivWeatherIcon.visibility = View.GONE
                         btnSearch.visibility = View.INVISIBLE
+                        btnForecast.visibility = View.INVISIBLE
                         pbLoadingWeather.visibility = View.VISIBLE
                     }
 
@@ -92,6 +100,7 @@ class MainActivity : AppCompatActivity() {
                         tvCurrentInfo.text = it.receivedWeather.currentWeather.describing.text
                         ivWeatherIcon.visibility = View.VISIBLE
                         btnSearch.visibility = View.VISIBLE
+                        btnForecast.visibility = View.VISIBLE
                         ivWeatherIcon.load("https:" + it.receivedWeather.currentWeather.describing.icon) {
                             crossfade(true)
                         }
