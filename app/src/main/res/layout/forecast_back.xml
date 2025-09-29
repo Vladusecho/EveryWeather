@@ -16,14 +16,32 @@
         android:padding="15dp">
 
         <TextView
-            android:id="@+id/tv_name"
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:textSize="16sp"
+            tools:text="00:00:" />
+
+        <TextView
+            android:id="@+id/tvCurrentTemp"
             android:layout_width="0dp"
+            android:layout_gravity="center_vertical"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/montserrat_bold"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="32sp"
             android:textStyle="bold"
-            tools:text="efewc" />
+            tools:text="29.2 °C" />
+
+        <ImageView
+            android:id="@+id/ivWeatherIcon"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:contentDescription="@string/weather_icon"
+            android:scaleType="fitCenter" />
 
 
     </LinearLayout>

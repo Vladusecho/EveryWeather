@@ -6,4 +6,5 @@
     <string name="weather_icon">weather_icon</string>
     <string name="developed_by_vladusecho">Developed by Vladusecho</string>
     <string name="hours_forecast">Подробный почасовой прогноз</string>
+    <string name="back_button">back_button</string>
 </resources>

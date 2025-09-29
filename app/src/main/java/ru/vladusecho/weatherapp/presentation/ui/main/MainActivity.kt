@@ -1,7 +1,9 @@
 package ru.vladusecho.weatherapp.presentation.ui.main
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Toast
@@ -10,9 +12,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
+import okio.Inflater
 import ru.vladusecho.weatherapp.R
 import ru.vladusecho.weatherapp.databinding.ActivityMainBinding
+import ru.vladusecho.weatherapp.domain.entities.HourWeather
 import ru.vladusecho.weatherapp.presentation.states.State
+import ru.vladusecho.weatherapp.presentation.ui.forecast.ForecastActivity
 import ru.vladusecho.weatherapp.presentation.viewmodels.MainViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -24,6 +29,8 @@ class MainActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
+
+    private lateinit var forecastList: ArrayList<HourWeather>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +48,9 @@ class MainActivity : AppCompatActivity() {
             viewModel.loadWeather(binding.etCityName.text.toString())
         }
         binding.btnForecast.setOnClickListener {
-            Toast.makeText(this, "Soon...", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, ForecastActivity::class.java)
+            intent.putParcelableArrayListExtra("FORECAST_LIST", forecastList)
+            startActivity(intent)
         }
     }
 
@@ -101,6 +110,7 @@ class MainActivity : AppCompatActivity() {
                         ivWeatherIcon.visibility = View.VISIBLE
                         btnSearch.visibility = View.VISIBLE
                         btnForecast.visibility = View.VISIBLE
+                        forecastList = it.receivedWeather.forecast.forecastDay[0].dayWeather
                         ivWeatherIcon.load("https:" + it.receivedWeather.currentWeather.describing.icon) {
                             crossfade(true)
                         }
