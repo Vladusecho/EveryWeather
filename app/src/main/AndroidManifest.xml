@@ -15,6 +15,9 @@
         android:theme="@style/Theme.EveryWeather"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.ui.forecast.ForecastActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.ui.main.MainActivity"
             android:exported="true">
             <intent-filter>

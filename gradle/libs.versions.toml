@@ -21,6 +21,7 @@ retrofitVersion = "3.0.0"
 squareupRetrofit = "1.9.0"
 
 [libraries]
+kotlin-parcelize = { module = "org.jetbrains.kotlinx:kotlinx-parcelize", version.ref = "kotlin" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
