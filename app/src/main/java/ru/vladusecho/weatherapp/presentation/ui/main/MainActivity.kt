@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var forecastList: ArrayList<HourWeather>
+    private lateinit var forecastDate: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +51,7 @@ class MainActivity : AppCompatActivity() {
         binding.btnForecast.setOnClickListener {
             val intent = Intent(this, ForecastActivity::class.java)
             intent.putParcelableArrayListExtra("FORECAST_LIST", forecastList)
+            intent.putExtra("FORECAST_DATE", forecastDate)
             startActivity(intent)
         }
     }
@@ -111,6 +113,7 @@ class MainActivity : AppCompatActivity() {
                         btnSearch.visibility = View.VISIBLE
                         btnForecast.visibility = View.VISIBLE
                         forecastList = it.receivedWeather.forecast.forecastDay[0].dayWeather
+                        forecastDate = it.receivedWeather.forecast.forecastDay[0].date
                         ivWeatherIcon.load("https:" + it.receivedWeather.currentWeather.describing.icon) {
                             crossfade(true)
                         }

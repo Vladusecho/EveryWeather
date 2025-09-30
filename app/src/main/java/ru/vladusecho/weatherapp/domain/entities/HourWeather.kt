@@ -15,4 +15,9 @@ data class HourWeather(
     @SerializedName("chance_of_rain") val chanceRain: String,
     @SerializedName("chance_of_snow") val chanceSnow: String,
     @SerializedName("condition") val describing: ConditionWeather
-) : Parcelable
+) : Parcelable {
+
+    fun getWindAsText() = "Ветер: ${"%.1f".format(wind.toFloat()/3.6)} м/с"
+
+    fun getRainChanceAsText() = "Дождь: $chanceRain%"
+}

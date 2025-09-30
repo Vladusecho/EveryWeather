@@ -12,22 +12,15 @@ data class CurrentWeather(
     @SerializedName("condition") val describing: ConditionWeather
 ) {
 
-    override fun toString(): String {
-        return "Последнее обновление: $lastUpdate\n" +
+    override fun toString() = "Последнее обновление: $lastUpdate\n" +
                 "Текущая температура: $temp °C\n" +
                 "Скорость ветра: ${"%.1f".format(wind.toFloat()/3.6)} м/с\n" +
                 "Погода: ${describing.text}"
-    }
 
-    fun getDateAsText(): String {
-        return "Актуально на $lastUpdate\n(указано местное время)"
-    }
+    fun getDateAsText() = "Актуально на $lastUpdate\n(указано местное время)"
 
-    fun getWindAsText(): String {
-        return "Ветер: ${"%.1f".format(wind.toFloat()/3.6)} м/с"
-    }
+    fun getWindAsText() = "Ветер: ${"%.1f".format(wind.toFloat()/3.6)} м/с"
 
-    fun getTempAsText(): String {
-        return "$temp °C"
-    }
+    fun getTempAsText() = "$temp °C"
+
 }
