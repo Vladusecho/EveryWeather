@@ -1,14 +1,10 @@
 package ru.vladusecho.weatherapp.presentation.ui.forecast
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import ru.vladusecho.weatherapp.R
 import ru.vladusecho.weatherapp.databinding.ActivityForecastBinding
 import ru.vladusecho.weatherapp.domain.entities.HourWeather
@@ -20,7 +16,7 @@ class ForecastActivity : AppCompatActivity() {
         ViewModelProvider(this)[ForecastViewModel::class.java]
     }
 
-    private lateinit var adapter: ForecastAdapter
+    private lateinit var forecastAdapter: ForecastAdapter
 
     private val binding by lazy {
         ActivityForecastBinding.inflate(layoutInflater)
@@ -30,11 +26,46 @@ class ForecastActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
-        adapter = ForecastAdapter()
-        val forecastList = intent.getParcelableArrayListExtra<HourWeather>("FORECAST_LIST") ?: emptyList()
-        adapter.forecastList = forecastList as ArrayList<HourWeather>
-        val rv = binding.rvForecast
-        rv.layoutManager = LinearLayoutManager(this)
-        rv.adapter = adapter
+        setupRecyclerView()
+        setupForecastDate()
+    }
+
+    private fun setupForecastDate() {
+        val date = intent.getStringExtra("FORECAST_DATE")
+        val dateList = date?.split("-")
+        val month = dateList?.get(1)
+        val nameMonth = when(month) {
+            "01" -> "января"
+            "02" -> "февраля"
+            "03" -> "марта"
+            "04" -> "апреля"
+            "05" -> "мая"
+            "06" -> "июня"
+            "07" -> "июля"
+            "08" -> "августа"
+            "09" -> "сентября"
+            "10" -> "октября"
+            "11" -> "ноября"
+            "12" -> "декабря"
+            else -> "ошибка: неизвестный месяц"
+        }
+        binding.tvDate.text = getString(
+            R.string.date_placeholder,
+            dateList?.last(),
+            nameMonth,
+            dateList?.first()
+        )
+    }
+
+    private fun setupRecyclerView() {
+        forecastAdapter = ForecastAdapter()
+        val forecastList = intent.getParcelableArrayListExtra<HourWeather>(
+            "FORECAST_LIST"
+        ) ?: emptyList()
+        forecastAdapter.forecastList = forecastList as ArrayList<HourWeather>
+        with(binding.rvForecast) {
+            layoutManager = LinearLayoutManager(context)
+            adapter = forecastAdapter
+        }
     }
 }

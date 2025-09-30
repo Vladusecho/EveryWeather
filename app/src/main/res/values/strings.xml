@@ -7,4 +7,6 @@
     <string name="developed_by_vladusecho">Developed by Vladusecho</string>
     <string name="hours_forecast">Подробный почасовой прогноз</string>
     <string name="back_button">back_button</string>
+    <string name="back">Вернуться назад…</string>
+    <string name="date_placeholder">%s %s %s</string>
 </resources>
