@@ -49,9 +49,7 @@ class MainActivity : AppCompatActivity() {
             viewModel.loadWeather(binding.etCityName.text.toString())
         }
         binding.btnForecast.setOnClickListener {
-            val intent = Intent(this, ForecastActivity::class.java)
-            intent.putParcelableArrayListExtra("FORECAST_LIST", forecastList)
-            intent.putExtra("FORECAST_DATE", forecastDate)
+            val intent = ForecastActivity.newIntent(this, forecastList, forecastDate)
             startActivity(intent)
         }
     }

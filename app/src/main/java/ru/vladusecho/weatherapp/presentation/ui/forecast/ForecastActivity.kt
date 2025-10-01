@@ -1,5 +1,7 @@
 package ru.vladusecho.weatherapp.presentation.ui.forecast
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -28,10 +30,17 @@ class ForecastActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupRecyclerView()
         setupForecastDate()
+        setupListeners()
+    }
+
+    private fun setupListeners() {
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
     }
 
     private fun setupForecastDate() {
-        val date = intent.getStringExtra("FORECAST_DATE")
+        val date = intent.getStringExtra(FORECAST_DATE_STRING)
         val dateList = date?.split("-")
         val month = dateList?.get(1)
         val nameMonth = when(month) {
@@ -60,12 +69,29 @@ class ForecastActivity : AppCompatActivity() {
     private fun setupRecyclerView() {
         forecastAdapter = ForecastAdapter()
         val forecastList = intent.getParcelableArrayListExtra<HourWeather>(
-            "FORECAST_LIST"
+            FORECAST_LIST_HOUR_ITEMS
         ) ?: emptyList()
         forecastAdapter.forecastList = forecastList as ArrayList<HourWeather>
         with(binding.rvForecast) {
             layoutManager = LinearLayoutManager(context)
             adapter = forecastAdapter
+        }
+    }
+
+    companion object {
+
+        private const val FORECAST_LIST_HOUR_ITEMS = "FORECAST_LIST"
+        private const val FORECAST_DATE_STRING = "FORECAST_DATE"
+
+        fun newIntent(
+            context: Context,
+            forecastList: ArrayList<HourWeather>,
+            forecastDate: String): Intent
+        {
+            return Intent(context, ForecastActivity::class.java).apply {
+                putExtra(FORECAST_LIST_HOUR_ITEMS, forecastList)
+                putExtra(FORECAST_DATE_STRING, forecastDate)
+            }
         }
     }
 }
